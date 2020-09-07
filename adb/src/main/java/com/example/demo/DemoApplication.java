@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import javax.annotation.Resource;
 import java.util.Date;
 
-@EnableScheduling
+@EnableScheduling  // 加载定时任务
 @SpringBootApplication
 public class DemoApplication {
 
@@ -22,6 +22,7 @@ public class DemoApplication {
     @Resource
     private JavaMailSender mailSender;
 
+    //这个一个定时任务每天的22：30分开始给指定邮箱发送一个邮件作为提醒  
     @Scheduled( cron = "0 30 22 1/1 * 1-7")
 //      @Scheduled( cron = "1/30 * * * * 1-7")
     public  void code(){
@@ -29,10 +30,10 @@ public class DemoApplication {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setSubject("提醒业务");
-        message.setText("学习强国还有今日校园完成了么？我的小宝贝"+new Date());
+        message.setText("学这是文章正文"+new Date());
 
-        message.setFrom("583285444@qq.com");
-        message.setTo("2081686841@qq.com");
+        message.setFrom("发信人qq@qq.com");
+        message.setTo("收信人qq@qq.com");
 
 
         mailSender.send(message);
